@@ -1,0 +1,155 @@
+<html>
+    <style>
+        .container {
+            width: 50%; /* Set the desired width of the container */
+            max-width: 350px; /* Optionally, you can set a maximum width to prevent it from becoming too wide on larger screens */
+            padding: 50px; /* Add some padding inside the container to separate the content from the edges *//* Set the background color of the container */
+            border: 1px solid #5d5c5c; /* Optionally, you can add a border around the container */
+            border-radius: 10px;
+            font-size:15px;
+            font-family:Arial, Helvetica, sans-serif;
+            height:45%;
+          }
+          .button{
+                background-color: #12dd18; /* Green */
+                padding: 15px 15px;
+                text-align: center;
+                font-size: 15px;
+                border-radius: 10px;
+                align-self: center;
+                } 
+        label{
+                display: inline-block;
+                font-size: 120%;
+                font-family:Arial, Helvetica, sans-serif;
+                padding-inline: 10px;
+                margin-right: 5px;
+            } 
+        input{
+                display: inline-block;
+                background-color:gainsboro;
+                font-size: large;
+                block-size: 30px;
+                font-family:Arial, Helvetica, sans-serif;
+                border: 1px solid #5d5c5c;
+                border-radius: 3px;
+            } 
+        .entries
+        {
+            height:50%;
+            border: 1px solid gray;
+            padding:5px
+        }
+        table{
+            font-family: Arial, Helvetica, sans-serif;
+            width:90%;
+            border:1px solid black;
+            border-collapse: collapse;
+        }
+        th{
+            border:1px solid black;
+            border-collapse:collapse;
+            background-color: lightgrey;
+            width:90px;
+            text-align: left;
+        }
+        td{ border:1px solid black;
+            border-collapse:collapse;
+        }
+        h2{
+            background-color: lightgray;
+            width: 90%;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+    <script>
+        let userform = document.getElementById("user-form");
+const retriveEntries=()=>
+{
+    let entries = localStorage.getItem("user-entries");
+    if(entries)
+    {
+        entries=JSON.parse(entries);
+    }
+    else{
+        entries=[];
+    }
+    return entries;
+}
+let userentries=retriveEntries();
+const displayEntries=()=>
+{
+    const entries=retriveEntries();
+    let tableEntries='';
+    entries.forEach((entry)=>
+    {
+        const nameCell=`<td >${entry.name}</td>`;
+        const emailCell=`<td >${entry.email}</td> `;
+        const passwordCell=`<td >${entry.password}</td>` ;
+        const dobCell=`<td >${entry.dob}</td>` ;
+        const termsCell=`<td >${entry.terms}</td>` ;
+
+        const row =`<tr>${nameCell}${emailCell}${passwordCell}${dobCell}${termsCell}</tr>`;
+        tableEntries += row;
+    })
+    const table = `<table><tr>
+        <th >Name</th>
+        <th >Email</th>
+        <th>Password</th>
+        <th >Date of Birth</th>
+        <th>Accepted terms?</th>
+        </tr>${tableEntries}</table>`;
+
+        let details =document.getElementById("user-entries");
+        details.innerHTML=table;
+    }
+const saveUserForm=(event)=>{
+   event.preventDefault();
+   const name =document.getElementById("name").value;
+   const email =document.getElementById("email").value;
+   const password=document.getElementById("password").value;
+   const dob =document.getElementById("dob").value;
+   const terms=document.getElementById("terms").checked;
+   const entry ={
+    name,
+    email,
+    password,
+    dob,
+    terms
+   };
+   userentries.push(entry);
+   localStorage.setItem("user-entries",JSON.stringify(userentries));
+   displayEntries();
+}
+userform.addEventListener("submit",saveUserForm);
+displayEntries();
+    </script>
+    <body>
+    <center>
+        <div class="container"> 
+        <center>    <h1>Registeration form</h1></center>
+            <form id="user-form">
+                <div class="values">
+                    <label for="name">Name</label>
+                    <input required type="text" id="name" name="name" placeholder="Enter Name"><br><br>
+                    <label for="email">Email</label>
+                    <input required  type="email" id="email" name="email" placeholder="Enter Email" > <br><br>
+                    <label for="password">Password</label>
+                    <input required  type="password" id="password" name="password" placeholder="Enter password"> <br><br>
+                    <label for="dob">Date of Birth</label>
+                    <input required type="date" min="1968-08-08" max="2005-08-08" id="dob" name="dob" placeholder="dd/mm/yy"> <br><br>
+                    <input required type="checkbox" id="terms" name="terms"  >
+                    <label for="terms">Accept Terms & Conditions</label><br> <br>
+                    <button class="button" type="submit" >Submit</button>
+                </div>
+            </form>
+        </div> 
+        <br>
+        <br>
+        <div class="entries">
+            <h2>ENTRIES</h2>
+            <div id="user-entries"></div>
+        </div> 
+    </center>
+     </body>   
+</html>  
