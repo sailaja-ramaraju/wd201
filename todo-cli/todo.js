@@ -1,10 +1,3 @@
-/* eslint-disable semi */
-/* eslint-disable prefer-const */
-/* eslint-disable no-var */
-/* eslint-disable quotes */
-/* eslint-disable no-undef */
-/* eslint-disable eol-last */
-/* eslint-disable indent */
 const todoList = () => {
     var all = []
     const add = (todoItem) => {
@@ -13,25 +6,54 @@ const todoList = () => {
     const markAsComplete = (index) => {
       all[index].completed = true
     }
-     const overdue = (index) => {
-        if (all[index].dueDate === yesterday) {
-        return all[index].title;
+    const overdue = () => {
+      var overdue = []
+      for (let i = 0; i < all.length; i++) {
+        if (all[i].dueDate === yesterday) {
+            overdue.push(all[i]);
         }
+      }
+      return overdue;
     }
-    const dueToday = (index) => {
-        if (all[index].dueDate === today) {
-            return all[index].title;
-            }
+    const dueToday = () => {
+        var dueToday = []
+        for (let i = 0; i < all.length; i++) {
+          if (all[i].dueDate === today) {
+              dueToday.push(all[i]);
+          }
+        }
+        return dueToday;
     }
     const dueLater = () => {
-        if (all[index].dueDate === tomorrow) {
-            return all[index].title;
-            }
+        var dueLater = []
+        for (let i = 0; i < all.length; i++) {
+          if (all[i].dueDate === tomorrow) {
+              dueLater.push(all[i]);
+          }
+        }
+        return dueLater;
     }
     const toDisplayableList = (list) => {
-      // Format the To-Do list here, and return the output string
-      // as per the format given above.
-      return all[index].title;
+        let lists = '';
+        for (let i = 0; i < list.length; i++) {
+            if (list[i].completed === true) {
+                lists += '[x] ';
+                lists += list[i].title + " ";
+                if (list[i].dueDate !== today) {
+                lists += list[i].dueDate;
+                }
+                lists += "\n";
+            }
+            else if (list[i].completed !== true) {
+                lists += '[] ';
+                lists += list[i].title + " ";
+                if (list[i].dueDate !== today) {
+                lists += list[i].dueDate;
+                }
+                lists += "\n";
+            }
+        }
+        return lists;
     }
     return {
       all,
