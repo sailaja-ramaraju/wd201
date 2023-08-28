@@ -44,7 +44,7 @@ const todoList = () => {
                 }
             }
             else if (list[i].completed !== true) {
-                lists += '[] ';
+                lists += '[ ] ';
                 lists += list[i].title + " ";
                 if (list[i].dueDate !== today) {
                 lists += list[i].dueDate;
