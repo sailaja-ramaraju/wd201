@@ -1,3 +1,5 @@
+/* eslint-disable curly */
+/* eslint-disable eqeqeq */
 /* eslint-disable semi */
 /* eslint-disable prefer-const */
 /* eslint-disable no-var */
@@ -13,32 +15,20 @@ const todoList = () => {
     const markAsComplete = (index) => {
       all[index].completed = true
     }
-    const overdue = () => {
-      var overdue = []
-      for (let i = 0; i < all.length; i++) {
-        if (all[i].dueDate === yesterday) {
-            overdue.push(all[i]);
+    const overdue = (index) => {
+        if (all[index].dueDate === yesterday) {
+        return all[index].title;
         }
-      }
-      return overdue;
     }
     const dueToday = (index) => {
-        var dueToday = []
-        for (let i = 0; i < all.length; i++) {
-          if (all[i].dueDate === today) {
-              dueToday.push(all[i]);
-          }
-        }
-        return dueToday;
+        if (all[index].dueDate === today) {
+            return all[index].title;
+            }
     }
     const dueLater = () => {
-        var dueLater = []
-        for (let i = 0; i < all.length; i++) {
-          if (all[i].dueDate === tomorrow) {
-              dueLater.push(all[i]);
-          }
-        }
-        return dueLater;
+        if (all[index].dueDate === tomorrow) {
+            return all[index].title;
+            }
     }
     const toDisplayableList = (list) => {
       // Format the To-Do list here, and return the output string
