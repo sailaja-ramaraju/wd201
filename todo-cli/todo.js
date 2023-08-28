@@ -42,7 +42,6 @@ const todoList = () => {
                 if (list[i].dueDate !== today) {
                 lists += list[i].dueDate;
                 }
-                lists += "\n";
             }
             else if (list[i].completed !== true) {
                 lists += '[] ';
@@ -50,8 +49,9 @@ const todoList = () => {
                 if (list[i].dueDate !== today) {
                 lists += list[i].dueDate;
                 }
-                lists += "\n";
             }
+            if(i!=list.length-1 )
+                lists+='\n'
         }
         return lists;
     }
